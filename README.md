@@ -15,8 +15,13 @@ You can change the number of the windows from an argument of RwR~. To form a pol
 inputs
 ----------
 1 - audio source
+
 2 - list of the windows in radius and angles
+
 3 - amount of the attenuation on the wall
+
 4 - X coordinate in meters
+
 5 - Y coordinate in meters
+
 6 - outer room size in meters
