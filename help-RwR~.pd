@@ -1,0 +1,117 @@
+#N canvas -1200 859 1170 664 12;
+#X obj 610 428 RwR~ 5, f 22;
+#X obj 490 480 dac~ 1 2 3 4 5;
+#X floatatom 719 234 5 0 6 2 attenuation(dB) - -;
+#X floatatom 746 316 5 0 100 2 - - -;
+#X floatatom 793 316 5 0 100 2 - - -;
+#X text 698 157 Window(r \, ang \, ang \, ...);
+#X msg 701 179 1.4 -30 30 0 -150 150;
+#X floatatom 811 376 5 0 0 2 - - -;
+#X text 848 382 in meters;
+#X text 848 369 Outerroomsize;
+#X text 749 273 in meters;
+#X text 750 261 X and Y Cord.;
+#X obj 610 178 noise~;
+#X obj 610 241 *~;
+#X obj 628 204 vsl 20 30 0 1 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 400 1;
+#X text 590 159 Input signal;
+#X obj 908 151 xysl 0 100 0 100;
+#X obj 908 257 unpack f f;
+#X obj 811 400 s outer;
+#X obj 908 281 expr $f1 / 100 * $f2;
+#X obj 943 307 expr $f1 / 100 * $f2;
+#X obj 1080 253 r outer;
+#X msg 811 353 4;
+#X msg 746 293 2;
+#X msg 793 293 3.8;
+#X obj 699 113 loadbang;
+#X msg 609 39 \; pd dsp 1;
+#X text 683 46 <-- Make sure audio is turned on;
+#X obj 610 481 env~;
+#X obj 611 530 vu 15 80 empty empty -1 -8 0 5 -66577 -1 1 0;
+#X obj 647 482 env~;
+#X obj 647 531 vu 15 80 empty empty -1 -8 0 5 -66577 -1 1 0;
+#X obj 685 482 env~;
+#X obj 686 531 vu 15 80 empty empty -1 -8 0 5 -66577 -1 1 0;
+#X obj 723 482 env~;
+#X obj 724 531 vu 15 80 empty empty -1 -8 0 5 -66577 -1 1 0;
+#X obj 761 482 env~;
+#X obj 762 531 vu 15 80 empty empty -1 -8 0 5 -66577 -1 1 0;
+#X msg 609 74 \; pd dsp 0;
+#X text 683 81 <-- Make sure audio is turned off;
+#X obj 610 505 - 100;
+#X obj 723 506 - 100;
+#X obj 761 506 - 100;
+#X obj 685 506 - 100;
+#X obj 647 506 - 100;
+#X text 26 77 Based on a concept by Shahrokh Yadegari in "space". Deformable
+polygon inner room by Yuki Minakawa and Julian Villegas.;
+#X text 25 135 RwR~ is a real-time implementation of a general model
+for the spatialization of audio sources. The central concept of the
+algorithm is that of a room within a room.;
+#X text 26 272 The inner room is the space delimited by the speakers
+which contain the listeners. The model simulates the behavior of the
+sound source within a user-defined virtual outer room \, as heard from
+the inner room. The speakers act as "windows" through which sound from
+the outer room passes.;
+#X text 26 198 In this implementation \, the outer room is assumed
+to be square \, and the inner one is assumed to be a polygon. If a
+virtual source is in the listening room \, the audio will be muted.
+;
+#X text 26 31 RwR~ - A module for spatialization of audio source Released
+under GNU's GPL License.;
+#X text 30 445 ----------;
+#X text 30 428 inputs;
+#X text 31 466 1 - audio source;
+#X text 31 490 2 - list of the windows in radius and angles;
+#X text 31 513 3 - amount of the attenuation on the wall;
+#X text 32 562 5 - Y coordinate in meters;
+#X text 32 585 6 - outer room size in meters;
+#X text 28 362 You can change the number of the windows from an argument
+of RwR~. To form a polygon \, the number of the windows must be three
+or more.;
+#X text 31 537 4 - X coordinate in meters;
+#X connect 0 0 1 0;
+#X connect 0 0 28 0;
+#X connect 0 1 1 1;
+#X connect 0 1 30 0;
+#X connect 0 2 1 2;
+#X connect 0 2 32 0;
+#X connect 0 3 1 3;
+#X connect 0 3 34 0;
+#X connect 0 4 1 4;
+#X connect 0 4 36 0;
+#X connect 2 0 0 2;
+#X connect 3 0 0 3;
+#X connect 4 0 0 4;
+#X connect 6 0 0 1;
+#X connect 7 0 18 0;
+#X connect 7 0 0 5;
+#X connect 12 0 13 0;
+#X connect 13 0 0 0;
+#X connect 14 0 13 1;
+#X connect 16 0 17 0;
+#X connect 17 0 19 0;
+#X connect 17 1 20 0;
+#X connect 19 0 3 0;
+#X connect 20 0 4 0;
+#X connect 21 0 19 1;
+#X connect 21 0 20 1;
+#X connect 22 0 7 0;
+#X connect 23 0 3 0;
+#X connect 24 0 4 0;
+#X connect 25 0 6 0;
+#X connect 25 0 23 0;
+#X connect 25 0 24 0;
+#X connect 25 0 22 0;
+#X connect 28 0 40 0;
+#X connect 30 0 44 0;
+#X connect 32 0 43 0;
+#X connect 34 0 41 0;
+#X connect 36 0 42 0;
+#X connect 40 0 29 0;
+#X connect 41 0 35 0;
+#X connect 42 0 37 0;
+#X connect 43 0 33 0;
+#X connect 44 0 31 0;
